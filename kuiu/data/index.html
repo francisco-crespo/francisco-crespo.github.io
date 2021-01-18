@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>KUIU (data)</title>
+        <style>
+            textarea {
+                width: 400px;
+                height: 200px;
+            }
+        </style>
+    </head>
+    <body>
+        <form onsubmit="return handleSubmit()">
+            <label for="input">Input</label><br />
+            <textarea id="input" name="input"> </textarea><br />
+            <br />
+            <button type="submit">Submit</button><br />
+            <br />
+            <label for="output">Output</label><br />
+            <textarea id="output" name="output"> </textarea><br />
+        </form>
+
+        <script>
+            ;(() => {
+                window.handleSubmit = () => {
+                    let raw = document.forms[0].input.value
+                    if (!raw) {
+                        return false
+                    }
+                    let input = JSON.parse(raw)
+                    document.forms[0].input.value = JSON.stringify(input, null, 4)
+
+                    var headers = new Headers()
+                    headers.append('Authorization', `Bearer ${input.access_token}`)
+                    headers.append('Accept', 'application/json')
+                    let request = {
+                        method: 'GET',
+                        headers,
+                    }
+                    fetch('https://auth.govx.com/api/data', request)
+                        .then((res) => {
+                            if (res.status == 200) {
+                                return res.json()
+                            } else {
+                                return null
+                            }
+                        })
+                        .then((data) => {
+                            let output = data ? JSON.stringify(data, null, 4) : ''
+                            document.forms[0].output.value = output
+                        })
+
+                    return false
+                }
+            })()
+        </script>
+    </body>
+</html>

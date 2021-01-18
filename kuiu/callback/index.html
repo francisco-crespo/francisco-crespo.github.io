@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>KUIU (callback)</title>
+        <style>
+            input {
+                width: 300px;
+            }
+        </style>
+    </head>
+    <body>
+        <form action="https://auth.govx.com/oauth/token" method="POST">
+            <label for="client_id">client_id:</label><br />
+            <input type="text" id="client_id" name="client_id" value="31e29e8d-4650-eb11-80c8-005056b8e1cc" /><br />
+            <br />
+            <label for="redirect_uri">redirect_uri:</label><br />
+            <input type="text" id="redirect_uri" name="redirect_uri" /><br />
+            <br />
+            <label for="code">code:</label><br />
+            <input type="text" id="code" name="code" /><br />
+            <br />
+            <label for="client_secret">client_secret:</label><br />
+            <input type="text" id="client_secret" name="client_secret" /><br />
+            <br />
+            <label for="grant_type">grant_type:</label><br />
+            <input type="text" id="grant_type" name="grant_type" value="authorization_code" /><br />
+            <br />
+            <button type="submit">Submit</button>
+        </form>
+        <script>
+            ;(() => {
+                var qs = {}
+                window.location.search
+                    .substr(1)
+                    .split('&')
+                    .forEach((x) => {
+                        var t = x.split('=')
+                        qs[t[0]] = t[1]
+                    })
+                document.forms[0].code.value = qs.code || ''
+                document.forms[0].redirect_uri.value = window.location.origin + window.location.pathname
+                
+            })()
+        </script>
+    </body>
+</html>
