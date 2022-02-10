@@ -3,22 +3,15 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Data</title>
-        <style>
-            textarea {
-                width: 400px;
-                height: 200px;
-            }
-        </style>
+        <style>label{display:block}textarea{width:400px;height:200px;}</style>
     </head>
     <body>
         <form onsubmit="return handleSubmit()">
-            <label for="input">Input</label><br />
-            <textarea id="input" name="input"> </textarea><br />
-            <br />
-            <button type="submit">Submit</button><br />
-            <br />
-            <label for="output">Output</label><br />
-            <textarea id="output" name="output"> </textarea><br />
+            <label for="input">Input</label>
+            <textarea id="input" name="input"> </textarea>
+            <button type="submit">Submit</button>
+            <label for="output">Output</label>
+            <textarea id="output" name="output"> </textarea>
         </form>
         <script src="./script.js"></script>
     </body>
